@@ -17,11 +17,11 @@ class TransactionsReader
         'currency',
     ];
 
-    /** @var false|resource */
-    private $filePointer;
-
     /** @var FilesystemWrapper */
     private FilesystemWrapper $filesystem;
+
+    /** @var false|resource */
+    private $filePointer;
 
     /**
      * @param FilesystemWrapper $filesystem

@@ -8,3 +8,5 @@ $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/.env');
 
 $transactionsFilePath = __DIR__ . '/input.txt';
+
+var_dump($_ENV['BIN_LIST_PROVIDER_URL']);

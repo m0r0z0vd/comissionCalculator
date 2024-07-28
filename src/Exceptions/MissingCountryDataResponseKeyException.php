@@ -4,14 +4,14 @@ namespace ComissionCalculator\Exceptions;
 
 use Throwable;
 
-class MissingTransactionDataKeyException extends UnprocessableTransactionDataException
+class MissingCountryDataResponseKeyException extends InvalidCountryDataException
 {
     public function __construct(
         string $key,
         $code = 0,
         Throwable $previous = null
     ) {
-        $message = 'Transaction data does not contain all the required keys.';
+        $message = 'Country data response does not contain all the required keys.';
 
         if ($key) {
             $message .= ' Missing key: ' . $key;
