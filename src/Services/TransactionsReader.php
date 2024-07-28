@@ -7,6 +7,7 @@ use ComissionCalculator\Exceptions\InvalidTransactionTypeException;
 use ComissionCalculator\Exceptions\MissingTransactionDataKeyException;
 use ComissionCalculator\Exceptions\UnprocessableTransactionDataException;
 use ComissionCalculator\Structures\TransactionData;
+use ComissionCalculator\Wrappers\FilesystemWrapper;
 
 class TransactionsReader
 {
@@ -19,14 +20,20 @@ class TransactionsReader
     /** @var false|resource */
     private $filePointer;
 
+    /** @var FilesystemWrapper */
+    private FilesystemWrapper $filesystem;
+
     /**
+     * @param FilesystemWrapper $filesystem
      * @param string $transactionsFilePath
      * @throws InvalidTransactionsFileException
      */
-    public function __construct(string $transactionsFilePath)
+    public function __construct(FilesystemWrapper $filesystem, string $transactionsFilePath)
     {
+        $this->filesystem = $filesystem;
+
         $this->validateTransactionsFilePath($transactionsFilePath);
-        $this->filePointer = fopen($transactionsFilePath, 'r');
+        $this->filePointer = $this->filesystem->fileOpen($transactionsFilePath, 'r');
     }
 
     /**
@@ -35,7 +42,7 @@ class TransactionsReader
      */
     public function readNextTransaction(): ?TransactionData
     {
-        $transactionStringData = fgets($this->filePointer);
+        $transactionStringData = $this->filesystem->fileGetString($this->filePointer);
 
         if (!$transactionStringData) {
             return null;
@@ -63,7 +70,10 @@ class TransactionsReader
      */
     private function validateTransactionsFilePath(string $transactionsFilePath): void
     {
-        if (!file_exists($transactionsFilePath) || !is_file($transactionsFilePath)) {
+        if (
+            !$this->filesystem->fileExists($transactionsFilePath)
+            || !$this->filesystem->isFile($transactionsFilePath)
+        ) {
             throw new InvalidTransactionsFileException();
         }
     }
@@ -83,6 +93,6 @@ class TransactionsReader
 
     public function __destruct()
     {
-        fclose($this->filePointer);
+        $this->filesystem->fileClose($this->filePointer);
     }
 }
