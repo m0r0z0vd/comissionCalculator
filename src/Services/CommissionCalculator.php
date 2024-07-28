@@ -2,10 +2,10 @@
 
 namespace CommissionApp\Services;
 
+use CommissionApp\Exceptions\ExchangeRateNotFoundException;
 use CommissionApp\Exceptions\InvalidCountryDataException;
 use CommissionApp\Exceptions\InvalidUrlException;
 use CommissionApp\Structures\TransactionData;
-use Exception;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Money\Currency;
@@ -40,14 +40,14 @@ class CommissionCalculator
      * @return string
      * @throws InvalidCountryDataException
      * @throws InvalidUrlException
+     * @throws ExchangeRateNotFoundException
      */
-    public function calculate(TransactionData $transaction): string
+    public function calculateCommissionInEUR(TransactionData $transaction): string
     {
         $country = $this->countryDataRetriever->getCountryData($transaction->bin);
         $amount = $this->parseAmount($transaction->amount, $transaction->currency);
         $convertedAmount = $this->convertToEur($amount);
         $commission = $this->calculateCommission($convertedAmount, $country->isEU);
-
         return $this->formatAmount($commission);
     }
 
@@ -64,7 +64,7 @@ class CommissionCalculator
     /**
      * @param Money $amount
      * @return Money
-     * @throws Exception
+     * @throws ExchangeRateNotFoundException
      */
     private function convertToEur(Money $amount): Money
     {
@@ -74,8 +74,8 @@ class CommissionCalculator
             return $amount;
         }
 
-        if (!isset($this->exchangeRates[$currencyCode])) {
-            throw new Exception("Exchange rate for currency $currencyCode not found.");
+        if (!array_key_exists($currencyCode, $this->exchangeRates)) {
+            throw new ExchangeRateNotFoundException($currencyCode);
         }
 
         $exchangeRate = $this->exchangeRates[$currencyCode];

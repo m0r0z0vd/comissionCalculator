@@ -12,4 +12,6 @@ class TransactionData
 
     /** @var string */
     public string $currency = '';
+
+    public string $commissionInEUR = '';
 }

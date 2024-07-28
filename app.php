@@ -30,8 +30,12 @@ $transactionsReader = new TransactionsReader($fileSystemWrapper, $transactionsFi
 $countryDataRetriever = new CardNumberCountryDataRetriever($fileSystemWrapper, $geographerWrapper, $binListProviderUrl);
 $commissionCalculator = new CommissionCalculator($countryDataRetriever, $exchangeRates);
 
+$commissionResults = [];
+
 while ($transactionData = $transactionsReader->readNextTransaction()) {
-    var_dump($transactionData);
-    $commission = $commissionCalculator->calculate($transactionData);
-    var_dump($commission);
+    $transactionData->commissionInEUR = $commissionCalculator->calculateCommissionInEUR($transactionData);
+    $commissionResults[] = $transactionData;
 }
+
+echo "Transactions data with commissions calculated: " . PHP_EOL;
+print_r($commissionResults);
