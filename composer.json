@@ -1,4 +1,10 @@
 {
+    "autoload": {
+        "psr-4": {
+            "ComissionCalculator\\": "src/",
+            "ComissionCalculator\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "phpunit/phpunit": "^10.5"
     }
