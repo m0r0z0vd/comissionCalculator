@@ -10,6 +10,7 @@
         "mockery/mockery": "^1.6"
     },
     "require": {
+        "php": ">=8.1",
         "symfony/dotenv": "^6.4",
         "menarasolutions/geographer": "^0.3.13",
         "moneyphp/money": "^3.3"
