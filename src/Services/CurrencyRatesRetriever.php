@@ -71,7 +71,7 @@ class CurrencyRatesRetriever
     /**
      * @return string
      */
-    public function generateLatestRatesUrl(): string
+    private function generateLatestRatesUrl(): string
     {
         return $this->providerUrl . '/latest?' . http_build_query([
             'access_key' => $this->accessKey,

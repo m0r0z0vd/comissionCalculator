@@ -2,6 +2,7 @@
 
 use CommissionApp\Services\CardNumberCountryDataRetriever;
 use CommissionApp\Services\CommissionCalculator;
+use CommissionApp\Services\CurrencyRatesRetriever;
 use CommissionApp\Services\TransactionsReader;
 use CommissionApp\Wrappers\FilesystemWrapper;
 use CommissionApp\Wrappers\GeographerWrapper;
@@ -9,25 +10,22 @@ use Symfony\Component\Dotenv\Dotenv;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$fileSystemWrapper = new FilesystemWrapper();
-$geographerWrapper = new GeographerWrapper();
+$transactionsFilePath = __DIR__ . '/' . (string)$argv[1];
 
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/.env');
 
 $binListProviderUrl = (string)$_ENV['BIN_LIST_PROVIDER_URL'];
+$exchangeRatesProviderUrl = (string)$_ENV['EXCHANGE_RATES_PROVIDER_URL'];
+$accessKey = (string)$_ENV['EXCHANGER_ACCESS_KEY'];
 
-$transactionsFilePath = __DIR__ . '/' . (string)$argv[1];
-
-$exchangeRates = [
-    'USD' => 0.85,
-    'JPY' => 0.0078,
-    'GBP' => 1.17,
-    'EUR' => 1.0,
-];
+$fileSystemWrapper = new FilesystemWrapper();
+$geographerWrapper = new GeographerWrapper();
 
 $transactionsReader = new TransactionsReader($fileSystemWrapper, $transactionsFilePath);
 $countryDataRetriever = new CardNumberCountryDataRetriever($fileSystemWrapper, $geographerWrapper, $binListProviderUrl);
+$currencyRatesRetriever = new CurrencyRatesRetriever($fileSystemWrapper, $exchangeRatesProviderUrl, $accessKey);
+$exchangeRates = $currencyRatesRetriever->getLatestRates();
 $commissionCalculator = new CommissionCalculator($countryDataRetriever, $exchangeRates);
 
 $commissionResults = [];
