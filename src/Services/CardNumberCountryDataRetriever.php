@@ -42,7 +42,7 @@ class CardNumberCountryDataRetriever
      */
     public function getCountryData(string $bin): CountryData
     {
-        if (!$this->binListProviderUrl || filter_var($this->binListProviderUrl, FILTER_VALIDATE_URL)) {
+        if (!$this->binListProviderUrl || filter_var($this->binListProviderUrl, FILTER_VALIDATE_URL) === false) {
             throw new InvalidUrlException($this->binListProviderUrl);
         }
 
