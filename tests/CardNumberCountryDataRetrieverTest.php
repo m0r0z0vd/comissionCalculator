@@ -171,4 +171,9 @@ class CardNumberCountryDataRetrieverTest extends TestCase
 
         return $geographerWrapper;
     }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
 }
