@@ -68,6 +68,8 @@ class CardNumberCountryDataRetrieverTest extends TestCase
      */
     public function testGetCountryIfNoUrlProvided(): void
     {
+        $this->expectException(InvalidUrlException::class);
+
         $fileSystemWrapper = $this->mockFilesystemWrapper();
         $geographerWrapper = $this->mockGeographerWrapper();
         $this->service = new CardNumberCountryDataRetriever(
@@ -76,7 +78,6 @@ class CardNumberCountryDataRetrieverTest extends TestCase
             ''
         );
 
-        $this->expectException(InvalidUrlException::class);
         $this->service->getCountryData(self::BIN);
     }
 
@@ -86,6 +87,8 @@ class CardNumberCountryDataRetrieverTest extends TestCase
      */
     public function testGetCountryIfInvalidUrl(): void
     {
+        $this->expectException(InvalidUrlException::class);
+
         $fileSystemWrapper = $this->mockFilesystemWrapper();
         $geographerWrapper = $this->mockGeographerWrapper();
         $this->service = new CardNumberCountryDataRetriever(
@@ -94,7 +97,6 @@ class CardNumberCountryDataRetrieverTest extends TestCase
             '1234'
         );
 
-        $this->expectException(InvalidUrlException::class);
         $this->service->getCountryData(self::BIN);
     }
 

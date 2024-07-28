@@ -31,9 +31,8 @@ class TransactionsReader
     public function __construct(FilesystemWrapper $filesystem, string $transactionsFilePath)
     {
         $this->filesystem = $filesystem;
-
         $this->validateTransactionsFilePath($transactionsFilePath);
-        $this->filePointer = $this->filesystem->fileOpen($transactionsFilePath, 'r');
+        $this->filePointer = $this->getFilePointer($transactionsFilePath);
     }
 
     /**
@@ -76,6 +75,22 @@ class TransactionsReader
         ) {
             throw new InvalidTransactionsFileException();
         }
+    }
+
+    /**
+     * @param string $transactionsFilePath
+     * @return resource
+     * @throws InvalidTransactionsFileException
+     */
+    private function getFilePointer(string $transactionsFilePath)
+    {
+        $pointer = $this->filesystem->fileOpen($transactionsFilePath, 'r');
+
+        if (!$pointer) {
+            throw new InvalidTransactionsFileException();
+        }
+
+        return $pointer;
     }
 
     /**
