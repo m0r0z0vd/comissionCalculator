@@ -8,6 +8,7 @@ use ComissionCalculator\Exceptions\InvalidUrlException;
 use ComissionCalculator\Exceptions\MissingCountryDataResponseKeyException;
 use ComissionCalculator\Structures\CountryData;
 use ComissionCalculator\Wrappers\FilesystemWrapper;
+use ComissionCalculator\Wrappers\GeographerWrapper;
 
 class CardNumberCountryDataRetriever
 {
@@ -17,12 +18,19 @@ class CardNumberCountryDataRetriever
     /** @var FilesystemWrapper */
     private FilesystemWrapper $filesystem;
 
+    /** @var GeographerWrapper */
+    private GeographerWrapper $geographerWrapper;
+
     /** @var string */
     private string $binListProviderUrl;
 
-    public function __construct(FilesystemWrapper $filesystem, string $binListProviderUrl)
-    {
+    public function __construct(
+        FilesystemWrapper $filesystem,
+        GeographerWrapper $geographerWrapper,
+        string $binListProviderUrl
+    ) {
         $this->filesystem = $filesystem;
+        $this->geographerWrapper = $geographerWrapper;
         $this->binListProviderUrl = $binListProviderUrl;
     }
 
@@ -52,9 +60,10 @@ class CardNumberCountryDataRetriever
 
         $this->getAlphaCode($arrayCountryData);
 
+        $europeCountryCodes = $this->geographerWrapper->getEuropeCountryCodes();
         $countryData = new CountryData();
         $countryData->countryCode = $this->getAlphaCode($arrayCountryData);
-        // @todo: set isEU
+        $countryData->isEU = in_array($countryData->countryCode, $europeCountryCodes);
 
         return $countryData;
     }
