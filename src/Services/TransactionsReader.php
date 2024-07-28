@@ -1,13 +1,13 @@
 <?php
 
-namespace ComissionCalculator\Services;
+namespace CommissionApp\Services;
 
-use ComissionCalculator\Exceptions\InvalidTransactionsFileException;
-use ComissionCalculator\Exceptions\InvalidTransactionTypeException;
-use ComissionCalculator\Exceptions\MissingTransactionDataKeyException;
-use ComissionCalculator\Exceptions\UnprocessableTransactionDataException;
-use ComissionCalculator\Structures\TransactionData;
-use ComissionCalculator\Wrappers\FilesystemWrapper;
+use CommissionApp\Exceptions\InvalidTransactionsFileException;
+use CommissionApp\Exceptions\InvalidTransactionTypeException;
+use CommissionApp\Exceptions\MissingTransactionDataKeyException;
+use CommissionApp\Exceptions\UnprocessableTransactionDataException;
+use CommissionApp\Structures\TransactionData;
+use CommissionApp\Wrappers\FilesystemWrapper;
 
 class TransactionsReader
 {

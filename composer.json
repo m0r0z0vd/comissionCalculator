@@ -1,8 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "ComissionCalculator\\": "src/",
-            "ComissionCalculator\\Tests\\": "tests/"
+            "CommissionApp\\": "src/",
+            "CommissionApp\\Tests\\": "tests/"
         }
     },
     "require-dev": {
@@ -10,6 +10,7 @@
     },
     "require": {
         "symfony/dotenv": "^6.4",
-        "menarasolutions/geographer": "^0.3.13"
+        "menarasolutions/geographer": "^0.3.13",
+        "moneyphp/money": "^3.3"
     }
 }

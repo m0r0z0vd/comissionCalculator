@@ -1,6 +1,6 @@
 <?php
 
-namespace ComissionCalculator\Wrappers;
+namespace CommissionApp\Wrappers;
 
 use MenaraSolutions\Geographer\Earth;
 

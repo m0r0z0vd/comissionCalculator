@@ -1,12 +1,12 @@
 <?php
 
-namespace ComissionCalculator\Services;
+namespace CommissionApp\Services;
 
-use ComissionCalculator\Exceptions\InvalidRatesDataException;
-use ComissionCalculator\Exceptions\InvalidRatesDataTypeException;
-use ComissionCalculator\Exceptions\InvalidUrlException;
-use ComissionCalculator\Exceptions\MissingRatesDataKeyException;
-use ComissionCalculator\Wrappers\FilesystemWrapper;
+use CommissionApp\Exceptions\InvalidRatesDataException;
+use CommissionApp\Exceptions\InvalidRatesDataTypeException;
+use CommissionApp\Exceptions\InvalidUrlException;
+use CommissionApp\Exceptions\MissingRatesDataKeyException;
+use CommissionApp\Wrappers\FilesystemWrapper;
 
 class CurrencyRatesRetriever
 {

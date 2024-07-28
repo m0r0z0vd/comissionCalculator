@@ -1,6 +1,6 @@
 <?php
 
-namespace ComissionCalculator\Structures;
+namespace CommissionApp\Structures;
 
 class TransactionData
 {

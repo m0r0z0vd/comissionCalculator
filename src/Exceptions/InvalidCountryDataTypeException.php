@@ -1,6 +1,6 @@
 <?php
 
-namespace ComissionCalculator\Exceptions;
+namespace CommissionApp\Exceptions;
 
 class InvalidCountryDataTypeException extends InvalidCountryDataException
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace ComissionCalculator\Services;
+namespace CommissionApp\Services;
 
-use ComissionCalculator\Exceptions\InvalidCountryDataException;
-use ComissionCalculator\Exceptions\InvalidCountryDataTypeException;
-use ComissionCalculator\Exceptions\InvalidUrlException;
-use ComissionCalculator\Exceptions\MissingCountryDataResponseKeyException;
-use ComissionCalculator\Structures\CountryData;
-use ComissionCalculator\Wrappers\FilesystemWrapper;
-use ComissionCalculator\Wrappers\GeographerWrapper;
+use CommissionApp\Exceptions\InvalidCountryDataException;
+use CommissionApp\Exceptions\InvalidCountryDataTypeException;
+use CommissionApp\Exceptions\InvalidUrlException;
+use CommissionApp\Exceptions\MissingCountryDataResponseKeyException;
+use CommissionApp\Structures\CountryData;
+use CommissionApp\Wrappers\FilesystemWrapper;
+use CommissionApp\Wrappers\GeographerWrapper;
 
 class CardNumberCountryDataRetriever
 {
